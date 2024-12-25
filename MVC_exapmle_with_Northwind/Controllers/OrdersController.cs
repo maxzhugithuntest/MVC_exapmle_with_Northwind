@@ -25,6 +25,29 @@ namespace MVC_exapmle_with_Northwind.Controllers
             return View(await northwindContext.ToListAsync());
         }
 
+        // GET: Orders|Search by condition      
+        public async Task<IActionResult> Indexdate([FromForm] DateRangeRequest request)
+        {
+            DateTime minDate = new DateTime(1990, 1, 1);
+            DateTime maxDate = DateTime.Today;
+
+            if (request.FromDate < minDate || request.FromDate > maxDate || request.EndDate < minDate || request.EndDate > maxDate || request.FromDate > request.EndDate)
+            {
+                ModelState.AddModelError(string.Empty, "請輸入合理的時間範圍。"); return View("Index"); // 返回錯誤訊息
+            }
+
+            var northwindContext = _context.Orders.Include(o => o.Customer).Include(o => o.Employee).Include(o => o.ShipViaNavigation).Where(o => o.OrderDate >= request.FromDate && o.OrderDate <= request.EndDate);
+            return View("Index", northwindContext);
+
+        }
+
+        public class DateRangeRequest
+        {
+            public DateTime FromDate { get; set; }
+            public DateTime EndDate { get; set; }
+        }
+
+
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
