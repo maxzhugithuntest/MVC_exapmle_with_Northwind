@@ -35,7 +35,6 @@ namespace MVC_exapmle_with_Northwind.Controllers
             {
                 ModelState.AddModelError(string.Empty, "請輸入合理的時間範圍。"); return View("Index"); // 返回錯誤訊息
             }
-
             var northwindContext = _context.Orders.Include(o => o.Customer).Include(o => o.Employee).Include(o => o.ShipViaNavigation).Where(o => o.OrderDate >= request.FromDate && o.OrderDate <= request.EndDate);
             return View("Index", northwindContext);
 
