@@ -361,4 +361,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/MVC_exapmle_with_Northwind/Views/Orders/Index.cshtml
