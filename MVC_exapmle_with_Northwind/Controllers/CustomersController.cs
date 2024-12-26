@@ -27,13 +27,24 @@ namespace MVC_exapmle_with_Northwind.Controllers
         public async Task<IActionResult> Indexsearch([FromForm] StringRequest request)
         {
             Console.WriteLine("hello" + request.Name);
-            var northwindContext = _context.Customers.Where(n=>n.CompanyName.Contains(request.Name));
-            return View("Index", northwindContext);
+            if (request.NameCategory == "CompanyName")
+            {
+                var northwindContext = _context.Customers.Where(n => n.CompanyName.Contains(request.Name));
+                return View("Index", northwindContext);
+            }
+            else if (request.NameCategory == "ContactName") {
+                var northwindContext = _context.Customers.Where(n => n.ContactName.Contains(request.Name));
+                return View("Index", northwindContext);
+            }
+
+            return View("Index", _context.Customers);
+
         }
 
         public class StringRequest
         {
             public string Name { get; set; }
+            public string NameCategory { get; set; }
         }
 
         // GET: Customers/Details/5
