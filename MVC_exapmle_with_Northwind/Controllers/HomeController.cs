@@ -5,13 +5,7 @@ using System.Diagnostics;
 namespace MVC_exapmle_with_Northwind.Controllers
 {
 	public class HomeController : Controller
-	{
-		//private readonly ILogger<HomeController> _logger;
-
-		//public HomeController(ILogger<HomeController> logger)
-		//{
-		//	_logger = logger;
-		//}
+	{		
 
 		// import DB
 		private readonly NorthwindContext _context;
@@ -19,12 +13,7 @@ namespace MVC_exapmle_with_Northwind.Controllers
 		public HomeController(NorthwindContext context)
 		{
 			_context = context;
-		}
-
-		// test connection
-		//public string Index() {
-		//		return _context.Products.FirstOrDefault().ProductName;
-		//}
+		}		
 
 		public IActionResult Index()
 		{

@@ -4,5 +4,19 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="card m-auto" style="width: 18rem;">        
+        <div class="card-body">            
+            <a class="nav-link text-dark" asp-area="" asp-controller="Customers" asp-action="Index">Customers</a>
+        </div>
+    </div>
+    <div class="card m-auto" style="width: 18rem;">
+        <div class="card-body">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
+        </div>
+    </div>
+    <div class="card m-auto" style="width: 18rem;">
+        <div class="card-body">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a>
+        </div>
+    </div>
 </div>
