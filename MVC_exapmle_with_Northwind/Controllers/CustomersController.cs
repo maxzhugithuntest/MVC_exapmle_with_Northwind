@@ -24,6 +24,18 @@ namespace MVC_exapmle_with_Northwind.Controllers
             return View(await _context.Customers.ToListAsync());
         }
 
+        public async Task<IActionResult> Indexsearch([FromForm] StringRequest request)
+        {
+            Console.WriteLine("hello" + request.Name);
+            var northwindContext = _context.Customers.Where(n=>n.CompanyName.Contains(request.Name));
+            return View("Index", northwindContext);
+        }
+
+        public class StringRequest
+        {
+            public string Name { get; set; }
+        }
+
         // GET: Customers/Details/5
         public async Task<IActionResult> Details(string id)
         {
