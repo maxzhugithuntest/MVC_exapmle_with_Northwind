@@ -33,10 +33,31 @@ namespace MVC_exapmle_with_Northwind.Controllers
 
             if (request.FromDate < minDate || request.FromDate > maxDate || request.EndDate < minDate || request.EndDate > maxDate || request.FromDate > request.EndDate)
             {
-                ModelState.AddModelError(string.Empty, "請輸入合理的時間範圍。"); return View("Index"); // 返回錯誤訊息
+                ModelState.AddModelError(string.Empty, "請輸入合理的時間範圍。"); return View("Index"); 
             }
-            var northwindContext = _context.Orders.Include(o => o.Customer).Include(o => o.Employee).Include(o => o.ShipViaNavigation).Where(o => o.OrderDate >= request.FromDate && o.OrderDate <= request.EndDate);
-            return View("Index", northwindContext);
+
+            Console.WriteLine(request.DateCategory);
+            if (request.DateCategory == "OrderDate")
+            {
+                var northwindContext = _context.Orders.Include(o => o.Customer).Include(o => o.Employee).Include(o => o.ShipViaNavigation).Where(o => o.OrderDate >= request.FromDate && o.OrderDate <= request.EndDate);
+                return View("Index", northwindContext);
+            }
+            else if (request.DateCategory == "RequiredDate")
+            {
+                var northwindContext = _context.Orders.Include(o => o.Customer).Include(o => o.Employee).Include(o => o.ShipViaNavigation).Where(o => o.RequiredDate >= request.FromDate && o.RequiredDate <= request.EndDate);
+                return View("Index", northwindContext);
+            }
+            else if (request.DateCategory == "ShippedDate")
+            {
+                var northwindContext = _context.Orders.Include(o => o.Customer).Include(o => o.Employee).Include(o => o.ShipViaNavigation).Where(o => o.ShippedDate >= request.FromDate && o.ShippedDate <= request.EndDate);
+                return View("Index", northwindContext);
+            }
+            else {
+                var northwindContext = _context.Orders.Include(o => o.Customer).Include(o => o.Employee).Include(o => o.ShipViaNavigation);
+                return View("Index", northwindContext);
+            }
+
+            
 
         }
 
@@ -44,6 +65,7 @@ namespace MVC_exapmle_with_Northwind.Controllers
         {
             public DateTime FromDate { get; set; }
             public DateTime EndDate { get; set; }
+            public string DateCategory { get; set; }
         }
 
 
